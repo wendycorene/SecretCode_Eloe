@@ -10,7 +10,6 @@ import Foundation
 
 class CodeWord {
     var symbols : [String] = ["A", "B", "C", "D", "E"]
-    var count: Int = 0
     var code: [String] = []
     var guess: [String] = []
     var attempts: Int = 0
@@ -25,29 +24,50 @@ class CodeWord {
     }
     
     func addSymbol () {
+        // I never used this.  What was it supposed to do?
         onSymbol += 1
         status = "Attempt \(attempts): X symbols guessed"
     }
     
     func correctGuesses () -> Int {
-        count = 0
+        var exactCount = 0
         var num = 0
         for i in guess {
             if i == code[num] {
-                count += 1
+                exactCount += 1
             }
             num += 1
         }
-        return count
+        return exactCount
     }
     
+    
     func statusMsg () -> String {
-        status = "Attempt \(attempts): \(correctGuesses()) symbols correct"
+        status = "Attempt \(attempts): \(correctGuesses()) symbols are in the correct location"
         return status
     }
     
+    func guessLocation () -> String {
+        var num = 0
+        var locations = ""
+        for i in guess {
+            if i == code[num] {
+                locations += "+ "
+            }
+            else if code.contains(i) {
+                locations += "O "
+            }
+            else {
+                locations += "- "
+            }
+            
+            num += 1
+        }
+        return locations
+    }
+    
     func currentGuess () -> [String] {
-        // I didn't need this, but here it is.
+        // I didn't use this, but here it is.
         return guess
     }
     
