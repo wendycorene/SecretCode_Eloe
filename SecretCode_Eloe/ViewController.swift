@@ -8,24 +8,32 @@
 
 import UIKit
 
-let items = AppDelegate.myModel.symbols
+let symbolList = AppDelegate.myModel.symbols
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return symbolList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "symbolsMaybe")!
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = symbolList[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        AppDelegate.myModel.guess.append(items[indexPath.row])
-        guessLBL.text = ("\(AppDelegate.myModel.guess)")
+            if AppDelegate.myModel.guess.count == 0 {
+            guessLBL.text = "Selected: "
+        }
+            AppDelegate.myModel.guess.append(symbolList[indexPath.row])
+            guessLBL.text? += (" \(symbolList[indexPath.row]) ")
+            if AppDelegate.myModel.guess.count == 4 {
+                AppDelegate.myModel.attempts += 1
+                statusLBL.text = "\(AppDelegate.myModel.statusMsg())"
+                        AppDelegate.myModel.guess = []
+            }
     }
 
     override func viewDidLoad() {
@@ -37,19 +45,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func guessBTN(_ sender: UIButton) {
-        if AppDelegate.myModel.correctMatch() {
-            statusLBL.text = "Correct"
-        }
-        else {
-            statusLBL.text = "You have \(AppDelegate.myModel.correctGuesses()) correct"
-            AppDelegate.myModel.guess = []
-        }
-    }
-    
     @IBOutlet weak var guessLBL: UILabel!
     @IBAction func resetBTN(_ sender: UIButton) {
+        AppDelegate.myModel.resetStuff()
     }
     @IBOutlet weak var statusLBL: UILabel!
     

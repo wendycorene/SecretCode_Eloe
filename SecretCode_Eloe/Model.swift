@@ -31,21 +31,23 @@ class CodeWord {
     
     func correctGuesses () -> Int {
         count = 0
+        var num = 0
         for i in guess {
-            for j in code {
-                if i == j {
-                    count += 1
-                }
+            if i == code[num] {
+                count += 1
             }
+            num += 1
         }
         return count
     }
     
     func statusMsg () -> String {
+        status = "Attempt \(attempts): \(correctGuesses()) symbols correct"
         return status
     }
     
     func currentGuess () -> [String] {
+        // I didn't need this, but here it is.
         return guess
     }
     
@@ -57,6 +59,10 @@ class CodeWord {
     }
     
     func resetStuff () {
-        //This should reset
+        code = []
+        for _ in 0..<4 {
+            code.append(symbols[Int(arc4random_uniform(UInt32(symbols.count)))])
+        }
+        attempts = 0
     }
 }
