@@ -10,7 +10,7 @@ import Foundation
 
 class CodeWord {
     var symbols : [String] = ["A", "B", "C", "D", "E"]
-    var count: Int = 4
+    var count: Int = 0
     var code: [String] = []
     var guess: [String] = []
     var attempts: Int = 0
@@ -19,8 +19,43 @@ class CodeWord {
     
     
     init (count: Int) {
-        for i in 0...count {
-            code[i] = symbols[Int(arc4random_uniform(UInt32(symbols.count)))]
+        for _ in 0..<count {
+            code.append(symbols[Int(arc4random_uniform(UInt32(symbols.count)))])
         }
+    }
+    
+    func addSymbol () {
+        onSymbol += 1
+        status = "Attempt \(attempts): X symbols guessed"
+    }
+    
+    func correctGuesses () -> Int {
+        for i in guess {
+            for j in code {
+                if i == j {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
+    
+    func statusMsg () -> String {
+        return status
+    }
+    
+    func currentGuess () -> [String] {
+        return guess
+    }
+    
+    func correctMatch () -> Bool {
+        if guess == code {
+            return true
+        }
+        return false
+    }
+    
+    func resetStuff () {
+        //This should reset
     }
 }
