@@ -25,14 +25,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             if AppDelegate.myModel.guess.count == 0 {
-            guessLBL.text = "Selected: "
+                guessLBL.text = "Selected: "
         }
             AppDelegate.myModel.guess.append(symbolList[indexPath.row])
             guessLBL.text? += (" \(symbolList[indexPath.row]) ")
             if AppDelegate.myModel.guess.count == 4 {
                 AppDelegate.myModel.attempts += 1
                 statusLBL.text = "\(AppDelegate.myModel.statusMsg())"
-                        AppDelegate.myModel.guess = []
+                AppDelegate.myModel.guess = []
             }
     }
 

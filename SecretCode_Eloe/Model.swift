@@ -47,24 +47,6 @@ class CodeWord {
         return status
     }
     
-    func guessLocation () -> String {
-        var num = 0
-        var locations = ""
-        for i in guess {
-            if i == code[num] {
-                locations += "+ "
-            }
-            else if code.contains(i) {
-                locations += "O "
-            }
-            else {
-                locations += "- "
-            }
-            
-            num += 1
-        }
-        return locations
-    }
     
     func currentGuess () -> [String] {
         // I didn't use this, but here it is.
