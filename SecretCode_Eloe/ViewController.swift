@@ -8,7 +8,7 @@
 
 import UIKit
 
-let items = AppDelegate.myModel.code
+let items = AppDelegate.myModel.symbols
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,10 +37,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func guessBTN(_ sender: UIButton) {
+        if AppDelegate.myModel.correctMatch() {
+            statusLBL.text = "Correct"
+        }
+        else {
+            statusLBL.text = "You have \(AppDelegate.myModel.correctGuesses()) correct"
+            AppDelegate.myModel.guess = []
+        }
+    }
+    
     @IBOutlet weak var guessLBL: UILabel!
     @IBAction func resetBTN(_ sender: UIButton) {
     }
+    @IBOutlet weak var statusLBL: UILabel!
     
 }
 

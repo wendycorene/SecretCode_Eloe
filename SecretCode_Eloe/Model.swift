@@ -30,6 +30,7 @@ class CodeWord {
     }
     
     func correctGuesses () -> Int {
+        count = 0
         for i in guess {
             for j in code {
                 if i == j {
